@@ -1,0 +1,362 @@
+git config --global user.name "nikitac1818"
+git config --global user.email "nikitac1818@gmail.com"
+1a:
+git init<project directory>
+cd project name 
+touch helloworld.c 
+git add helloworld.c 
+git commit -m "files" 
+git status 
+git log
+1b:
+git branch feature-branch
+git switch feature-branch
+gedit swap.c
+git add swap.c
+git commit -m "swap"
+git checkout master
+git merge feature-branch
+git log
+
+
+
+
+2a:
+git branch
+git switch NewBranch(if exists else) git checkout -b NewBranch
+touch merge.c
+git add .
+git stash
+git checkout master
+ls
+git stash list
+git stash apply stash@{0}
+git commit -m "hello"
+2b:
+git clone "https://...."
+
+
+
+
+
+
+
+3a:
+git clone -b main https://github.com/Binduraj-16/To-Do
+cd To-Do
+ls
+cat bin.txt
+touch text1.txt
+git add .
+git commit -m "new file commit"
+git pull origin main --rebase
+git push origin main
+# (If authentication required → use GitHub Personal Access Token as password)
+git checkout -b slave
+touch file2.txt
+git add .
+git commit -m "work in slave branch"
+git fetch origin
+git rebase origin/main
+git checkout main
+git merge slave
+git push origin main
+git checkout slave
+ls
+3b:
+git clone https://github.com/Binduraj-16/To-Do
+cd To-Do
+gedit prgm.txt
+# (write something like: "This is main branch code" and save)
+git add prgm.txt
+git commit -m "prgm in main"
+git checkout -b feature-branch
+gedit prgm.txt
+# (change content: "This is feature branch code" and save)
+git add prgm.txt
+git commit -m "prgm in feature-branch"
+git checkout main
+git merge feature-branch (if no conflict then git push origin main)
+CONFLICT (content): Merge conflict in prgm.txt
+# 9. Open file to fix conflict
+gedit prgm.txt
+<<<<<<< HEAD
+This is main branch code
+=======
+This is feature branch code
+>>>>>>> feature-branch
+remove <<<<<<< ======= >>>>>>>
+git add prgm.txt
+git commit -m "resolved merge conflict"
+git push origin main
+
+
+
+
+
+
+
+4a
+git init
+git checkout -b main
+notepad file1.txt
+git add file1.txt
+git commit -m "commit 1"
+notepad file1.txt
+git add file1.txt
+git commit -m "commit 2"
+notepad file1.txt
+git add file1.txt
+git commit -m "commit 3"
+# keep editing same file and committing
+# repeat till commit 10
+git log
+git tag v1.0
+git log
+git push origin main(if it does not push then pull clear the conflicts, add, commit then pull agian and push)
+git push origin v1.0
+4b
+git init
+git checkout -b main
+git checkout -b source-branch
+touch f1.txt
+git add f1.txt
+git commit -m "commit 1"
+notepad f1.txt
+git add f1.txt
+git commit -m "commit 2"
+notepad f1.txt
+git add f1.txt
+git commit -m "commit 3"
+git checkout main
+git log source-branch --oneline
+git cherry-pick <start-commit>^..<end-commit>
+git cherry-pick --continue
+git log --oneline
+
+if u wanna delete smtg rm -rf file name
+
+
+
+
+
+
+5a
+git log --oneline
+git show <commit-id>
+5b
+git log --author="author name" --since="start date" --until="end date" --oneline
+do 10 commits for all do git init at start
+
+
+
+
+
+
+
+
+
+6a
+mkdir lab1
+cd lab1
+git --version
+git init
+echo "hello" > a1.txt
+git add .
+git commit -m "1st commit"
+echo "change 2" >> a1.txt
+git add .
+git commit -m "2nd commit"
+echo "change 3" >> a1.txt
+git add .
+git commit -m "3rd commit"
+echo "change 4" >> a2.txt
+git add .
+git commit -m "4th commit"
+echo "change 4" >> a2.txt
+git add .
+git commit -m "5th commit"
+
+
+Display last 5 commits:
+git log -n 5 --oneline
+
+Revert a commit:
+git revert commit-id
+
+Verify:
+git log --oneline
+
+
+6b:
+Go to repo:
+cd lab1
+git config --global --list
+
+Create aliases:
+git config --global alias.st status
+git config --global alias.lg "log --oneline --graph"
+git config --global alias.co "checkout"
+git config --global alias.br "branch"
+git config --global alias.last "log -1 HEAD"
+git config --global alias.undo "reset HEAD~"
+git config --global alias.last "log -1 HEAD"
+git config --global alias.undo "reset HEAD --"
+Check all aliases:
+git config --global --list | grep alias
+
+
+7a:
+mkdir lab3
+cd lab3
+git init
+echo "initial" > file1.txt
+git add .
+git commit -m "initial commit"
+
+Create feature branch:
+git checkout -b feature
+echo "feature.root" > file.txt
+git add .
+git commit -m "work on feature"
+
+git checkout main
+git merge feature -m "merge feature into main"
+git log --oneline
+git revert -m1 commitid
+git log — oneline
+
+
+7b:
+git checkout -b test-branch
+echo "hello" > file2.txt
+git add .
+git commit -m "added file.txt"
+git checkout main
+git merge test-branch
+git branch -D test-branch
+git reflog 
+git checkout -b test-branch cc0030
+git log --oneline
+
+
+8a:
+git init
+touch  f1.txt f2.txt f3.txt
+
+Preview what will be removed:
+git clean -n
+
+Remove untracked files:
+git clean -f
+
+Remove files + directories:
+git clean -fd
+
+Remove only specific files:
+git clean -f temp1.txt
+
+
+8b:
+mkdir git-archive-demo
+cd git-archive-demo
+git init
+echo "hello world" > file1.txt
+git add .
+git commit -m "initial commit"
+
+Create zip of branch:
+git archive --format=zip --output=feature.zip feature
+
+Create tar of branch:
+git archive --format=tar --output=feature.tar feature
+
+Archive specific commit:
+git log --oneline
+git archive --format=zip --output=commit.zip <commit-id>
+git archive --format=tar --output=commit.tar <commit-id>
+ls
+
+Verify:
+git status
+git archive
+
+
+9:
+Step 1–5: Setup Java
+- Place JDK 17 in: C:\Program Files\Java\jdk-17.0.0.1
+- Windows + S → "Environment Variables" → Edit System Environment Variables
+- System Variables → New:
+    Variable Name:  JAVA_HOME
+    Variable Value: C:\Program Files\Java\jdk-17
+- Edit Path → New → %JAVA_HOME%\bin → OK
+Verify Java:
+bashjava --version
+Step 6: Download & Run Jenkins (.war)
+bashjava -jar jenkins.war
+Step 7: Unlock Jenkins
+Browser → http://localhost:8080
+Paste the one-time password from terminal
+Step 8: Setup
+→ Install suggested plugins
+→ Create First Admin User
+→ Save and Continue
+→ Save and Finish
+→ Start using Jenkins
+Create a Job:
+New Item → Enter job name → Freestyle project → OK
+Build Steps → Execute Windows batch command → echo "hello, jenkins"
+Save → Build Now
+
+
+
+10:
+
+java -jar jenkins.war
+Step 1: Install Plugins
+Manage Jenkins → Manage Plugins → install:
+  - Git plugin
+  - GitHub plugin
+  - GitHub Integration Plugin
+  - GitHub Branch Source
+  - Pipeline
+Step 2: Configure Git path
+where git
+Manage Jenkins → Tools → Git installations
+  Path to Git executable: git.exe
+→ Apply & Save
+Step 3: Add Credentials
+Manage Jenkins → Security → Credentials
+→ System → Global credentials → Add Credentials
+  Kind:     Username with password
+  Username: <your GitHub username>
+  Password: <your GitHub token>
+  ID:       Jenkins_demo
+→ Create
+Step 4: Create Freestyle Job
+New Item → jenkins_git_project → Freestyle project → OK
+
+Source Code Management → Git:
+  Repository URL: https://github.com/YourUsername/jenkins_git.git
+  Credentials:    Jenkins_demo
+  Branch:         */main
+
+Additional Behaviours → Add → Checkout to a sub-directory
+  Local subdirectory: D:\test
+Step 5: Python file (add.py) — push this to your GitHub repo
+a = 10
+b = 20
+result = a + b
+print("Adding two numbers:")
+print("a =", a)
+print("b =", b)
+print("Result (a + b) =", result)
+Step 6: Build Step
+Build Steps → Execute Windows batch command:
+
+  echo "Starting Jenkins Build..."
+  echo "Running Python addition script"
+  python D:\test\add.py
+  echo "Build Completed Successfully"
+
+→ Save → Build Now
